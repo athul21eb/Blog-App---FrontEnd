@@ -1,38 +1,36 @@
-import axios, { AxiosError, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
-import { BASE_URL, CONDUIT_TOKEN } from "../../constants";
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const JWT_TOKEN = import.meta.env.VITE_JWT_TOKEN;
 
 export const conduitApi = axios.create();
 
 conduitApi.interceptors.request.use((request: AxiosRequestConfig) => {
-  const token = localStorage.getItem(CONDUIT_TOKEN)
-  request.baseURL = BASE_URL
-  if (token) {
-    if (request.headers) {
-      request.headers.Authorization = `Bearer ${token}`
-    } else {
-      request.headers = {
-        Authorization: `Bearer ${token}`
-      }
-    }
-  }
-  return request as InternalAxiosRequestConfig
-})
+  const token = localStorage.getItem(JWT_TOKEN); // token stored under JWT_TOKEN key
+  request.baseURL = BASE_URL;
 
+  if (token) {
+    request.headers = {
+      ...request.headers,
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  return request as InternalAxiosRequestConfig;
+});
 
 conduitApi.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (res) => res,
   (error) => {
-    const customError: AxiosError = {
-      ...error,
-      errors: error.response?.data?.errors,
-      message: error.response?.data?.message,
-      statusCode: error.response?.status,
+    const data = error.response?.data;
+    const normalizedErrors = data?.errors ?? {
+      general: [data?.message || "Unknown error"],
     };
 
-    return Promise.reject(customError);
-  },
+    return Promise.reject({
+      ...error,
+      errors: normalizedErrors,
+    });
+  }
 );
-

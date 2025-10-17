@@ -40,7 +40,7 @@ export const Settings = () => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Your Settings</h1>
 
-            {isError && ((error as AxiosError).response?.data as any)?.errors?.length > 0 && <ErrorList errors={((error as AxiosError).response?.data as any)?.errors} />}
+           {isError && <ErrorList errors={(error as any)?.errors} />}
             <Formik
               initialValues={initialValues}
               onSubmit={(user) => mutate({ user })}

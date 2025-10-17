@@ -7,7 +7,7 @@ const GuestHeader = () => {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
-        <a className="navbar-brand" href="/">conduit</a>
+        <a className="navbar-brand" href="/">Blog app</a>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
             <NavLink className={({ isActive }) => isActive ? 'active nav-link' : 'nav-link'} to="/">Home</NavLink>
@@ -28,7 +28,7 @@ const UserHeader = ({ user }: { user: User | undefined }) => {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
-        <a className="navbar-brand" href="/">conduit</a>
+        <a className="navbar-brand" href="/">Blog App</a>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
             <NavLink className={({ isActive }) => isActive ? 'active nav-link' : 'nav-link'} to="/">Home</NavLink>

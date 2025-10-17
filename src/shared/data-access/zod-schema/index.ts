@@ -14,7 +14,7 @@ export const RegisterValidationSchema = z.object({
 })
 
 export const UpdateUserValidationSchema = z.object({
-  image: z.string(),
+  image: z.string().optional(),
   username: z.string(),
   bio: z.string(),
   email: z.string(),

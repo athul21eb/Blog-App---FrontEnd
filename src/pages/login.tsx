@@ -36,7 +36,8 @@ export const Login = () => {
               <NavLink to="/register">Need an account?</NavLink>
             </p>
 
-            {isError && <ErrorList errors={((error as AxiosError).response?.data as any)?.errors} />}
+           {isError && <ErrorList errors={(error as any)?.errors} />}
+
 
             <Formik
               initialValues={initialValues}
